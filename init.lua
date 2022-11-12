@@ -8,12 +8,21 @@ end
 
 MeetIsOpen = function()
     sourceFile = os.getenv("HOME") .. "/.hammerspoon/jxa/meetIsOpen.js"
-    ran, meetIsOpen, _ = hs.osascript.javascriptFromFile(sourceFile)
+    ran, urlsByWindowAndTab, _ = hs.osascript.applescript(
+        'tell application "Google Chrome" to get URL of every tab of every window')
     if ran == false then
         return false
     end
 
-    return meetIsOpen
+    for _, window in pairs(urlsByWindowAndTab) do
+        for _, url in pairs(window) do
+            if string.find(url, "meet.google.com") then
+                return true
+            end
+        end
+    end
+
+    return false
 end
 
 local MeetWasOpen = false
