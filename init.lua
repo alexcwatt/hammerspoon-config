@@ -18,7 +18,7 @@ end
 
 local MeetWasOpen = false
 
-MeetingSetup = function()
+KeyLightAutomation = function()
     if IsDocked() then
         if MeetIsOpen() then
             MeetWasOpen = true
@@ -30,4 +30,4 @@ MeetingSetup = function()
     end
 end
 
-hs.timer.doEvery(1, MeetingSetup)
+keyLightTimer = hs.timer.doEvery(1, KeyLightAutomation)
