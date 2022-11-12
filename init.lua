@@ -16,11 +16,15 @@ MeetIsOpen = function()
     return meetIsOpen
 end
 
+local MeetWasOpen = false
+
 MeetingSetup = function()
     if IsDocked() then
         if MeetIsOpen() then
+            MeetWasOpen = true
             spoon.ElgatoKey:on()
-        else
+        elseif MeetWasOpen then
+            MeetWasOpen = false
             spoon.ElgatoKey:off()
         end
     end
