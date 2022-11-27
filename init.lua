@@ -1,4 +1,4 @@
-hs.loadSpoon('ElgatoKey'):start()
+hs.loadSpoon('ElgatoKeys'):start()
 
 IsDocked = function()
     return hs.fnutils.some(hs.usb.attachedDevices(), function(device)
@@ -31,10 +31,10 @@ KeyLightAutomation = function()
     if IsDocked() then
         if MeetIsOpen() then
             MeetWasOpen = true
-            spoon.ElgatoKey:on()
+            spoon.ElgatoKeys:on()
         elseif MeetWasOpen then
             MeetWasOpen = false
-            spoon.ElgatoKey:off()
+            spoon.ElgatoKeys:off()
         end
     end
 end
