@@ -3,7 +3,7 @@
 --- Inspired by https://github.com/evantravers/hammerspoon-config/blob/master/Spoons/ElgatoKey.spoon/init.lua
 local M = {
     name = "Elgato Key Light Controls",
-    version = "0.1",
+    version = "0.2",
     author = "Alex Watt <alex@alexcwatt.com>",
     license = "MIT <https://opensource.org/licenses/MIT>"
 }
@@ -42,7 +42,8 @@ local function getSettings(keylight)
 end
 
 local function setSettings(keylight, settings)
-    local status, response, header = hs.http.doRequest(lightsUrl(keylight), "PUT", hs.json.encode(settings))
+    hs.http.asyncPut(lightsUrl(keylight), hs.json.encode(settings), nil, function(code, body, headers)
+    end)
 end
 
 local function onOff(state)
