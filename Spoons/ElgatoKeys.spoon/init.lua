@@ -26,7 +26,9 @@ function M.findServices()
                 keylight.ip = service:addresses()[1]
                 keylight.port = service:port()
 
-                table.insert(M.keylights, keylight)
+                if (keylight.ip ~= nil and keylight.port ~= nil) then
+                    table.insert(M.keylights, keylight)
+                end
             end
         end)
     end)
