@@ -6,34 +6,21 @@ IsDocked = function()
     end)
 end
 
-MeetIsOpen = function()
-    sourceFile = os.getenv("HOME") .. "/.hammerspoon/jxa/meetIsOpen.js"
-    ran, urlsByWindowAndTab, _ = hs.osascript.applescript(
-        'tell application "Google Chrome" to get URL of every tab of every window')
-    if ran == false then
-        return false
-    end
-
-    for _, window in pairs(urlsByWindowAndTab) do
-        for _, url in pairs(window) do
-            if string.find(url, "meet.google.com") then
-                return true
-            end
-        end
-    end
-
-    return false
+CameraIsOn = function()
+    return hs.fnutils.some(hs.camera.allCameras(), function(camera)
+        return camera:isInUse()
+    end)
 end
 
-local MeetWasOpen = false
+local CameraWasOn = false
 
 KeyLightAutomation = function()
     if IsDocked() then
-        if MeetIsOpen() then
-            MeetWasOpen = true
+        if CameraIsOn() then
+            CameraWasOn = true
             spoon.ElgatoKeys:on()
-        elseif MeetWasOpen then
-            MeetWasOpen = false
+        elseif CameraWasOn then
+            CameraWasOn = false
             spoon.ElgatoKeys:off()
         end
     end
