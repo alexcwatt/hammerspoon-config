@@ -40,6 +40,9 @@ end
 
 local function getSettings(keylight)
     local status, body, headers = hs.http.get(lightsUrl(keylight))
+    if status ~= 200 or body == nil then
+        return nil
+    end
     return hs.json.decode(body)
 end
 
@@ -51,9 +54,12 @@ end
 local function onOff(state)
     for i, keylight in ipairs(M.keylights) do
         local settings = getSettings(keylight)
-        settings.lights[1].on = state
-
-        setSettings(keylight, settings)
+        if settings then
+            settings.lights[1].on = state
+            setSettings(keylight, settings)
+        else
+            print("Failed to retrieve settings for keylight:", keylight.ip)
+        end
     end
 end
 
