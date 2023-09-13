@@ -18,9 +18,11 @@ local CameraLastOnTime = 0
 KeyLightAutomation = function()
     if IsDocked() then
         if CameraIsOn() then
-            CameraWasOn = true
+            if not CameraWasOn then
+                CameraWasOn = true
+                spoon.ElgatoKeys:on()
+            end
             CameraLastOnTime = hs.timer.secondsSinceEpoch()
-            spoon.ElgatoKeys:on()
         elseif CameraWasOn and (hs.timer.secondsSinceEpoch() - CameraLastOnTime) > 2 then
             CameraWasOn = false
             spoon.ElgatoKeys:off()
