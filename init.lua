@@ -2,7 +2,7 @@ hs.loadSpoon('ElgatoKeys'):start()
 
 IsDocked = function()
     return hs.fnutils.some(hs.usb.attachedDevices(), function(device)
-        return device.productName == "CalDigit USB-C Pro Audio"
+        return device.productName == "CalDigit Thunderbolt 3 Audio"
     end)
 end
 
