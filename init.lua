@@ -1,5 +1,8 @@
 hs.loadSpoon('ElgatoKeys'):start()
 
+-- Refresh list of key lights regularly
+hs.timer.doEvery(300, function() spoon.ElgatoKeys.findServices() end)
+
 IsDocked = function()
     return hs.fnutils.some(hs.usb.attachedDevices(), function(device)
         return device.productName == "CalDigit Thunderbolt 3 Audio"
